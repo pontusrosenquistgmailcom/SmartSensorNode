@@ -23,6 +23,7 @@ typedef struct ListItem{
 typedef struct Storage{
     ListItem* next;
     char* http_post_string;
+    char* server;
 }Storage;
 
 int storage_init(Storage* _Storage);

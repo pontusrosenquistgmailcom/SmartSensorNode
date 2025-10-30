@@ -5,6 +5,7 @@
 #include "clienttoserver.h"
 #include "../utils/montime.h"
 
+/* large function that will create a socket, send http POST request to server and read the response */
 int clienttoserver_send_and_receive(char* _IPAddress, char* _Port, dataCallback callback, void* _Context){
 
     TCPClient client;
@@ -20,7 +21,6 @@ int clienttoserver_send_and_receive(char* _IPAddress, char* _Port, dataCallback 
 
     /* callback to obtain message string */
     char* request = callback(_Context);
-    /* printf("request content:\n%s\n", request); */
     
     const char* ptr = &request[0];
     int bytesLeft = strlen(request);
@@ -43,8 +43,6 @@ int clienttoserver_send_and_receive(char* _IPAddress, char* _Port, dataCallback 
         }
     }
 
-
-    /* READ RESPONSE ###############*/
     char buffer[8192] = {0};
     int totalBytesRead = 0;
 

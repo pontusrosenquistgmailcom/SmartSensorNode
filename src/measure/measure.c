@@ -9,6 +9,7 @@
 char* GetUserInputChar();
 void current_time(char* buffer, size_t buffer_size);
 
+/* user interaction to add measurement */
 int measure_new_measurement(Storage* _Storage){
 
     printf("Enter temperature: ");
@@ -26,7 +27,7 @@ int measure_new_measurement(Storage* _Storage){
 }
 
 
-
+/* private function that helps handle user input */
 char* GetUserInputChar(){
     char buffer[100];
     fgets(buffer, sizeof(buffer), stdin);
@@ -35,6 +36,7 @@ char* GetUserInputChar(){
     return return_string;
 }
 
+/* private functioin that produces current time as string */
 void current_time(char* buffer, size_t buffer_size) {
     time_t now = time(NULL);
     struct tm* t = gmtime(&now);

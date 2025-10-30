@@ -5,6 +5,7 @@
 #include "../cJSON/cJSON.h"
 #include "httpbuilder.h"
 
+/* Builds the HTTP request based on items in _Storage*/
 int httpbuilder_build(Storage* _Storage){
 
     if(_Storage->next == NULL){
@@ -18,7 +19,7 @@ int httpbuilder_build(Storage* _Storage){
     cJSON* cjson_data;
 
     cJSON_AddItemToObject(cjson_root, "measurements", cjson_measurements);
-    /*int i = 1;*/
+    
     while(current_item != NULL)
     {
         cJSON_AddItemToArray(cjson_measurements, cjson_data = cJSON_CreateObject());
@@ -39,9 +40,10 @@ int httpbuilder_build(Storage* _Storage){
 
     sprintf(http_blob, 
         "POST /post HTTP/1.1\r\n"
-        "Host: www.httpbin.org\r\n"
+        "Host: %s\r\n"
         "Content-Type: application/json\r\n"
         "Content-Length: %i\r\n\r\n%s"
+        , _Storage->server    
         , content_length,
          json_data_string);
 

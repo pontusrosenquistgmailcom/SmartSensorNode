@@ -7,7 +7,7 @@
 #include "storage.h"
 
 
-
+/* adds a few preprogrammed data entries */
 int storage_init(Storage* _Storage){
 
     storage_add_to_local_list(_Storage, "2025-09-14 13:15:35", "22.5", DEVICE_ID);
@@ -17,6 +17,7 @@ int storage_init(Storage* _Storage){
     return 0;
 }
 
+/* adds an item to the local list, time, temp device id*/
 int storage_add_to_local_list(Storage* _Storage, char* _Time, char* _Temp, char* _DeviceID){
     ListItem* new_item = (ListItem*)malloc(sizeof(ListItem));
     memset(new_item, 0, sizeof(ListItem));
@@ -46,6 +47,7 @@ int storage_add_to_local_list(Storage* _Storage, char* _Time, char* _Temp, char*
     return 1;
 }
 
+/* print all stored data to console */
 int storage_print_all_data(Storage* _Storage){
 
     ListItem* current_item = _Storage->next;
@@ -61,6 +63,7 @@ int storage_print_all_data(Storage* _Storage){
     return 0;
 }
 
+/* removes (free) all items in memory */
 void storage_dispose_items(Storage* _Storage){
 
     if(_Storage->next == NULL)
@@ -79,6 +82,7 @@ void storage_dispose_items(Storage* _Storage){
     }
 }
 
+/* use this to clean up storage memory at end of program runtime */
 void storage_destory_storage(Storage* _Storage){
     
     if(_Storage == NULL)

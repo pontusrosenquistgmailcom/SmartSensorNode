@@ -7,13 +7,17 @@
 #include "measure/measure.h"
 #include "ssn.h"
 
+/* callback that allows tcpclient to obtain the http POST request */
 char* build_http_payload(void* _Context) {
     Storage* storage = (Storage*)_Context;
     httpbuilder_build(storage);
     return storage->http_post_string;
 }
 
+/* runs the client console ui */
 int ssn_run_client(Storage* _Storage){
+    _Storage->server = SERVER;
+    
     int keep_looping = 1;
     while(keep_looping == 1) {
     char input;
