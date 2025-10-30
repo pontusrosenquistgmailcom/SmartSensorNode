@@ -6,21 +6,27 @@
 #include "../utils/strdup.h"
 #include "storage.h"
 
+
+
 int storage_init(Storage* _Storage){
 
-    storage_add_to_local_list(_Storage, "2025-09-15_14:35", 22.5, 9902347);
-    storage_add_to_local_list(_Storage, "2025-10-17_07:59", 14.7, 9902347);
-    /*storage_add_to_local_list(_Storage, "2025-11-04_00:10", 4.2, 9902347);*/
+    storage_add_to_local_list(_Storage, "2025-09-14 13:15:35", "22.5", DEVICE_ID);
+    storage_add_to_local_list(_Storage, "2025-10-30 15:08:50", "14.7", DEVICE_ID);
+    storage_add_to_local_list(_Storage, "2025-11-04 00:10:10", "4.2", DEVICE_ID);
 
     return 0;
 }
 
-int storage_add_to_local_list(Storage* _Storage, char* _Time, float _Temp, int _DeviceID){
+int storage_add_to_local_list(Storage* _Storage, char* _Time, char* _Temp, char* _DeviceID){
     ListItem* new_item = (ListItem*)malloc(sizeof(ListItem));
     memset(new_item, 0, sizeof(ListItem));
     new_item->time = strdup(_Time);
-    new_item->temp = _Temp;
-    new_item->device_id = _DeviceID;
+
+            char tempstr[64] = {0};
+        sprintf(tempstr, "%s °C", _Temp);
+
+    new_item->temp = strdup(tempstr);
+    new_item->device_id = strdup(_DeviceID);
     new_item->next = NULL;
 
     if(_Storage->next == NULL)
@@ -47,8 +53,8 @@ int storage_print_all_data(Storage* _Storage){
     while(current_item != NULL)
     {
         printf("Time: %s\n", current_item->time);
-        printf("Temp: %.2f\n", current_item->temp);
-        printf("Device: %d\n\n", current_item->device_id);
+        printf("Temp: %s °C\n", current_item->temp);
+        printf("Device: %s\n\n", current_item->device_id);
         current_item = current_item->next;
     }
 
@@ -66,6 +72,8 @@ void storage_dispose_items(Storage* _Storage){
     {   
         ListItem* next_item = current_item->next;
         free(current_item->time);
+        free(current_item->temp);
+        free(current_item->device_id);
         free(current_item);
         current_item = next_item;
     }

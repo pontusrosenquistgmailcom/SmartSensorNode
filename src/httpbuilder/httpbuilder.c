@@ -23,8 +23,8 @@ int httpbuilder_build(Storage* _Storage){
     {
         cJSON_AddItemToArray(cjson_measurements, cjson_data = cJSON_CreateObject());
         cJSON_AddItemToObject(cjson_data, "time", cJSON_CreateString(current_item->time));
-        cJSON_AddNumberToObject(cjson_data, "temperature", current_item->temp);
-        cJSON_AddNumberToObject(cjson_data, "UUID", current_item->device_id);
+        cJSON_AddItemToObject(cjson_data, "temperature", cJSON_CreateString(current_item->temp));
+        cJSON_AddItemToObject(cjson_data, "UUID", cJSON_CreateString(current_item->device_id));
         
         current_item = current_item->next;
     }

@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "strdup.h": "c"
+        "strdup.h": "c",
+        "storage.h": "c"
     }
 }

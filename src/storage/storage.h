@@ -6,12 +6,14 @@
 
 #include "../utils/strdup.h"
 
+#define DEVICE_ID "514729"
+
 typedef struct ListItem ListItem;
 
 typedef struct ListItem{
     char* time;
-    float temp;
-    int device_id;
+    char* temp;
+    char* device_id;
     
     /* ... */
     ListItem* next;
@@ -25,7 +27,7 @@ typedef struct Storage{
 
 int storage_init(Storage* _Storage);
 
-int storage_add_to_local_list(Storage* _Storage, char* _Time, float _Temp, int _DeviceID);
+int storage_add_to_local_list(Storage* _Storage, char* _Time, char* _Temp, char* _DeviceID);
 
 int storage_print_all_data(Storage* _Storage);
 

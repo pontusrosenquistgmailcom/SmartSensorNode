@@ -4,8 +4,8 @@
 #include "clienttoserver.h"
 #include "storage/storage.h"
 #include "httpbuilder/httpbuilder.h"
+#include "measure/measure.h"
 
-#define DEVICE_ID 514729
 #define SERVER "www.httpbin.org"
 #define PORT "80"
 
@@ -22,6 +22,7 @@ int main(){
     memset(storage, 0, sizeof(Storage));
     storage_init(storage);
 
+    measure_new_measurement(storage);
 
     /* connect to server and send stored data with http POST request */
     clienttoserver_send_and_receive(SERVER, PORT, build_http_payload, storage);
