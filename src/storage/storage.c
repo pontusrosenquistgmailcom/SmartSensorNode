@@ -7,15 +7,10 @@
 #include "storage.h"
 
 int storage_init(Storage* _Storage){
-/*
-    _Storage = (Storage*)malloc(sizeof(Storage));
-    memset(_Storage, 0, sizeof(Storage));
-*/
+
     storage_add_to_local_list(_Storage, "2025-09-15_14:35", 22.5, 9902347);
     storage_add_to_local_list(_Storage, "2025-10-17_07:59", 14.7, 9902347);
     /*storage_add_to_local_list(_Storage, "2025-11-04_00:10", 4.2, 9902347);*/
-
-    /*storage_print_all_data(_Storage);*/
 
     return 0;
 }
@@ -60,3 +55,31 @@ int storage_print_all_data(Storage* _Storage){
     return 0;
 }
 
+void storage_dispose_items(Storage* _Storage){
+
+    if(_Storage->next == NULL)
+        return;
+    
+    ListItem* current_item = _Storage->next;
+
+    while(current_item != NULL)
+    {   
+        ListItem* next_item = current_item->next;
+        free(current_item->time);
+        free(current_item);
+        current_item = next_item;
+    }
+}
+
+void storage_destory_storage(Storage* _Storage){
+    
+    if(_Storage == NULL)
+        return;
+    
+    storage_dispose_items(_Storage);
+
+    if(_Storage->http_post_string != NULL)
+        free(_Storage->http_post_string);
+    
+    free(_Storage);
+}

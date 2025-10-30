@@ -7,24 +7,21 @@
 
 int clienttoserver_send_and_receive(char* _IPAddress, char* _Port, dataCallback callback, void* _Context){
 
-
-    /* ########     TCP CLIENT START     ######### */
-    printf("Start of TCP\n");
     TCPClient client;
 
     TCPClient_Initiate(&client);
 
-    /*if (TCPClient_Connect(&client, "142.250.74.132", "80") != 0)*/
+
     if (TCPClient_Connect(&client, _IPAddress, _Port) != 0)
     {
         printf("Failed to connect to server\r\n");
         return -1;
     }else   printf("\nSuccess connecting to %s (port %s) using file descriptor [%d]\n\n", _IPAddress , _Port, client.fd);
 
-    /* WRITE TO SERVER #################*/
+    /* callback to obtain message string */
     char* request = callback(_Context);
-
-    printf("request content:\n%s\n", request);
+    /* printf("request content:\n%s\n", request); */
+    
     const char* ptr = &request[0];
     int bytesLeft = strlen(request);
 
@@ -74,6 +71,5 @@ int clienttoserver_send_and_receive(char* _IPAddress, char* _Port, dataCallback 
     TCPClient_Disconnect(&client);
     TCPClient_Dispose(&client);
 
-    /* ########     TCP CLIENT END       ######### */
     return 0;
 }

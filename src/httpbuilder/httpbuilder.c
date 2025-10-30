@@ -43,9 +43,7 @@ int httpbuilder_build(Storage* _Storage){
 
     _Storage->http_post_string = http_blob;
 
-    
-
     cJSON_Delete(cjson_root);
-
+    free(json_data_string);
     return 0;
 }

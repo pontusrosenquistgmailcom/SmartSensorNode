@@ -11,27 +11,23 @@
 
 char* build_http_payload(void* _Context) {
     Storage* storage = (Storage*)_Context;
+    httpbuilder_build(storage);
     return storage->http_post_string;
 }
 
 int main(){
     
-    /* ########     DUMMY DATA START       ########### 3x data entries in code*/
+    /* 3x preprgogrammed data entries */
     Storage* storage = (Storage*)malloc(sizeof(Storage));
     memset(storage, 0, sizeof(Storage));
     storage_init(storage);
-    /* ########     DUMMY DATA END       ########### */
 
 
-    /* build HTTP POST request */
-
-    httpbuilder_build(storage);
-    /*printf("contents of storage->json_report:\n%s\n", storage->http_post_string);*/
-
-
-    /* ########     TCP CLIENT START     ######### */
+    /* connect to server and send stored data with http POST request */
     clienttoserver_send_and_receive(SERVER, PORT, build_http_payload, storage);
 
-    /* ########     TCP CLIENT END       ######### */
+  
+    storage_destory_storage(storage);
+
     return 0;
 }
