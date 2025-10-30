@@ -1,6 +1,8 @@
 #ifndef __SSN_H__
 #define __SSN_H__
 
+#define SERVER "www.httpbin.org"
+#define PORT "80"
 
 #include <stdio.h>
 #include <stdlib.h>

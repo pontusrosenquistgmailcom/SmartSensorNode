@@ -64,9 +64,11 @@ int clienttoserver_send_and_receive(char* _IPAddress, char* _Port, dataCallback 
     }
 
     printf("Size of incomming message: %li\n", strlen(buffer));
-
-    printf("Buffer content: %s\n", buffer);
-
+    if (strlen(buffer) > 0){
+        printf("Response from server:\n\n%s\n", buffer);
+    }else{
+        printf("\nLooks like the server did not respond before timeout (5 seconds)\n");
+    }
 
     TCPClient_Disconnect(&client);
     TCPClient_Dispose(&client);

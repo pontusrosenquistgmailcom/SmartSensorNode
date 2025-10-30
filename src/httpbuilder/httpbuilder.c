@@ -36,10 +36,14 @@ int httpbuilder_build(Storage* _Storage){
     int content_length = strlen(json_data_string);
     
     char* http_blob = (char*)malloc(8192);
-    /*
-    POST /post HTTP/1.1\r\nHost: www.httpbin.org\r\naccept: application/json\r\nContent-Length: 5\r\n\r\nHello\r\n";
-    */
-    sprintf(http_blob, "POST /post HTTP/1.1\r\nHost: localhost:80\r\nContent-Length: %i\r\n\r\n%s", content_length, json_data_string);
+
+    sprintf(http_blob, 
+        "POST /post HTTP/1.1\r\n"
+        "Host: www.httpbin.org\r\n"
+        "Content-Type: application/json\r\n"
+        "Content-Length: %i\r\n\r\n%s"
+        , content_length,
+         json_data_string);
 
     _Storage->http_post_string = http_blob;
 

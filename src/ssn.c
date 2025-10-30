@@ -5,9 +5,7 @@
 #include "storage/storage.h"
 #include "httpbuilder/httpbuilder.h"
 #include "measure/measure.h"
-
-#define SERVER "www.httpbin.org"
-#define PORT "80"
+#include "ssn.h"
 
 char* build_http_payload(void* _Context) {
     Storage* storage = (Storage*)_Context;

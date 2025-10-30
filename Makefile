@@ -20,7 +20,7 @@ LDFLAGS := -flto -Wl,--gc-sections
 
 # Bibliotek att länka mot
 # Detta är en enkel variabel definition
-LIBS := -lcurl
+LIBS :=
 
 # Hittar alla .c filer rekursivt i katalogen.
 # Den anropar 'find' kommandot i Linux och formaterar resultatet som en lista på sökvägar med mellanslag mellan varje
@@ -70,7 +70,7 @@ $(BIN): $(OBJ)
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@echo "Compiling $<..."
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Hjälpmål: kör programmet om det är byggt
 # Se det som en function anropas utifrån (make run)
