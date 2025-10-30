@@ -1,29 +1,36 @@
-
+#ifndef __STORAGE_H__
+#define __STORAGE_H__
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "../utils/strdup.h"
 
-typedef struct LocalListItem LocalListItem;
+typedef struct ListItem ListItem;
 
-typedef struct LocalListItem{
+typedef struct ListItem{
     char* time;
     float temp;
     int device_id;
     
     /* ... */
-    LocalListItem* next;
+    ListItem* next;
     
-} LocalListItem;
+} ListItem;
 
-typedef struct LocalList{
-    LocalListItem* next;
-}LocalList;
+typedef struct Storage{
+    ListItem* next;
+    char* json_report_string;
+}Storage;
 
-int LL_init(LocalList* _LL);
+int storage_init(Storage* _Storage);
 
-int LL_add_to_local_list(LocalList* _LL, char* _Time, float _Temp, int _DeviceID);
+int storage_add_to_local_list(Storage* _Storage, char* _Time, float _Temp, int _DeviceID);
 
-int LL_print_all_data(LocalList* _LL);
+int storage_print_all_data(Storage* _Storage);
 
+void storage_dispose_items(Storage* _Storage);
+
+void storage_destory_storage(Storage* _Storage);
+
+#endif /* __STORAGE_H__ */

@@ -6,36 +6,36 @@
 #include "../utils/strdup.h"
 #include "storage.h"
 
-int LL_init(LocalList* _LL){
+int storage_init(Storage* _Storage){
+/*
+    _Storage = (Storage*)malloc(sizeof(Storage));
+    memset(_Storage, 0, sizeof(Storage));
+*/
+    storage_add_to_local_list(_Storage, "2025-09-15_14:35", 22.5, 9902347);
+    /*storage_add_to_local_list(_Storage, "2025-10-17_07:59", 14.7, 9902347);*/
+    /*storage_add_to_local_list(_Storage, "2025-11-04_00:10", 4.2, 9902347);*/
 
-    _LL = (LocalList*)malloc(sizeof(LocalList));
-    memset(_LL, 0, sizeof(LocalList));
-
-    LL_add_to_local_list(_LL, "2025-09-15_14:35", 22.5, 9902347);
-    LL_add_to_local_list(_LL, "2025-10-17_07:59", 14.7, 9902347);
-    LL_add_to_local_list(_LL, "2025-11-04_00:10", 4.2, 9902347);
-
-    /*LL_print_all_data(_LL);*/
+    /*storage_print_all_data(_Storage);*/
 
     return 0;
 }
 
-int LL_add_to_local_list(LocalList* _LL, char* _Time, float _Temp, int _DeviceID){
-    LocalListItem* new_item = (LocalListItem*)malloc(sizeof(LocalListItem));
-    memset(new_item, 0, sizeof(LocalListItem));
+int storage_add_to_local_list(Storage* _Storage, char* _Time, float _Temp, int _DeviceID){
+    ListItem* new_item = (ListItem*)malloc(sizeof(ListItem));
+    memset(new_item, 0, sizeof(ListItem));
     new_item->time = strdup(_Time);
     new_item->temp = _Temp;
     new_item->device_id = _DeviceID;
     new_item->next = NULL;
 
-    if(_LL->next == NULL)
+    if(_Storage->next == NULL)
     {
-        _LL->next = new_item;
+        _Storage->next = new_item;
         return 0;
     }
     else
     {
-        LocalListItem* last_item = _LL->next;
+        ListItem* last_item = _Storage->next;
         while(last_item->next)
             last_item = last_item->next;
         last_item->next = new_item;
@@ -45,9 +45,9 @@ int LL_add_to_local_list(LocalList* _LL, char* _Time, float _Temp, int _DeviceID
     return 1;
 }
 
-int LL_print_all_data(LocalList* _LL){
+int storage_print_all_data(Storage* _Storage){
 
-    LocalListItem* current_item = _LL->next;
+    ListItem* current_item = _Storage->next;
 
     while(current_item != NULL)
     {
