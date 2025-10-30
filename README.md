@@ -4,7 +4,7 @@ Project for Nordic Tech AB
 Kurs 2: uppgift 306
 
 To build prototype client:
-`make all`
+``make all``
 
 builds 'ssnclient' 
 
