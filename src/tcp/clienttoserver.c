@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "tcp/tcp_client.h"
-#include "utils/montime.h"
+#include "tcp_client.h"
 #include "clienttoserver.h"
+#include "../utils/montime.h"
 
 int clienttoserver_send_and_receive(char* _IPAddress, char* _Port, dataCallback callback, void* _Context){
 

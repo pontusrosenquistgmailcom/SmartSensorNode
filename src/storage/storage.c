@@ -11,8 +11,8 @@
 int storage_init(Storage* _Storage){
 
     storage_add_to_local_list(_Storage, "2025-09-14 13:15:35", "22.5", DEVICE_ID);
-    storage_add_to_local_list(_Storage, "2025-10-30 15:08:50", "14.7", DEVICE_ID);
-    storage_add_to_local_list(_Storage, "2025-11-04 00:10:10", "4.2", DEVICE_ID);
+    /*storage_add_to_local_list(_Storage, "2025-10-30 15:08:50", "14.7", DEVICE_ID);*/
+    /*storage_add_to_local_list(_Storage, "2025-11-04 00:10:10", "4.2", DEVICE_ID);*/
 
     return 0;
 }
@@ -53,7 +53,7 @@ int storage_print_all_data(Storage* _Storage){
     while(current_item != NULL)
     {
         printf("Time: %s\n", current_item->time);
-        printf("Temp: %s °C\n", current_item->temp);
+        printf("Temp: %s\n", current_item->temp);
         printf("Device: %s\n\n", current_item->device_id);
         current_item = current_item->next;
     }

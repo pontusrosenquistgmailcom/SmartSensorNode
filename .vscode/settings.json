@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "strdup.h": "c",
-        "storage.h": "c"
+        "storage.h": "c",
+        "httpbuilder.h": "c",
+        "clienttoserver.h": "c"
     }
 }
