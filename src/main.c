@@ -7,15 +7,14 @@
 
 int main(){
     
-    /* 1x preprgogrammed data entry */
     Storage* storage = (Storage*)malloc(sizeof(Storage));
     memset(storage, 0, sizeof(Storage));
+    
+    /* 1x preprgogrammed data entry */
     storage_init(storage);
 
     ssn_run_client(storage);
 
-  
-    /* cleanup of memory */
     storage_destory_storage(storage);
 
     return 0;
