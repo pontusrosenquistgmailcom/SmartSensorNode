@@ -13,8 +13,8 @@ builds 'ssnclient'
 
 ssn.h contains 
 
-´´#define SERVER "www.httpbin.org"
-#define PORT "80"´´
+``#define SERVER "www.httpbin.org"
+#define PORT "80"``
 
 where a different server or port can be configured
 
