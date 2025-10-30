@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 #include "../cJSON/cJSON.h"
 #include "httpbuilder.h"
@@ -15,16 +18,9 @@ int httpbuilder_build(Storage* _Storage){
     cJSON* cjson_data;
 
     cJSON_AddItemToObject(cjson_root, "measurements", cjson_measurements);
-    int i = 1;
+    /*int i = 1;*/
     while(current_item != NULL)
     {
-        /*
-        printf("Hello from inside while loop in httpbuilder\n\n");
-
-        printf("Time: %s\n", current_item->time);
-        printf("Temp: %.2f\n", current_item->temp);
-        printf("Device: %d\n\n", current_item->device_id);
-        */
         cJSON_AddItemToArray(cjson_measurements, cjson_data = cJSON_CreateObject());
         cJSON_AddItemToObject(cjson_data, "time", cJSON_CreateString(current_item->time));
         cJSON_AddNumberToObject(cjson_data, "temperature", current_item->temp);
@@ -34,11 +30,18 @@ int httpbuilder_build(Storage* _Storage){
     }
 
 
-    char http_blob[8192];
-    
-    sprintf(http_blob, "POST /#/HTTP_Methods/post_post HTTP/1.1\r\n");
 
-    _Storage->json_report_string = cJSON_Print(cjson_root);
+    char* json_data_string = cJSON_Print(cjson_root);
+
+    int content_length = strlen(json_data_string);
+    
+    char* http_blob = (char*)malloc(8192);
+    /*
+    POST /post HTTP/1.1\r\nHost: www.httpbin.org\r\naccept: application/json\r\nContent-Length: 5\r\n\r\nHello\r\n";
+    */
+    sprintf(http_blob, "POST /post HTTP/1.1\r\nHost: localhost:80\r\nContent-Length: %i\r\n\r\n%s", content_length, json_data_string);
+
+    _Storage->http_post_string = http_blob;
 
     
 

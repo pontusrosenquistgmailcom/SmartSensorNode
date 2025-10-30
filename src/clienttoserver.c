@@ -1,12 +1,11 @@
 #include <stdio.h>
-
 #include <stdlib.h>
 
 #include "tcp/tcp_client.h"
-#include "storage/storage.h"
 #include "utils/montime.h"
+#include "clienttoserver.h"
 
-int clienttoserver_send_and_receive(char* _IPAddress, char* _Port){
+int clienttoserver_send_and_receive(char* _IPAddress, char* _Port, dataCallback callback, void* _Context){
 
 
     /* ########     TCP CLIENT START     ######### */
@@ -20,10 +19,12 @@ int clienttoserver_send_and_receive(char* _IPAddress, char* _Port){
     {
         printf("Failed to connect to server\r\n");
         return -1;
-    }else   printf("Success connecting to server using file descriptor: [%d]\n", client.fd);
+    }else   printf("\nSuccess connecting to %s (port %s) using file descriptor [%d]\n\n", _IPAddress , _Port, client.fd);
 
     /* WRITE TO SERVER #################*/
-    char* request ="GET / HTTP/1.1\r\nhost: 142.250.74.132:80\r\n\r\n";
+    char* request = callback(_Context);
+
+    printf("request content:\n%s\n", request);
     const char* ptr = &request[0];
     int bytesLeft = strlen(request);
 
@@ -47,15 +48,15 @@ int clienttoserver_send_and_receive(char* _IPAddress, char* _Port){
 
 
     /* READ RESPONSE ###############*/
-    char buffer[1024] = {0};
+    char buffer[8192] = {0};
     int totalBytesRead = 0;
 
     now = SystemMonotonicMS();
-    timeout = now + 1500;
+    timeout = now + 5000;
 
     while(now < timeout){
         now = SystemMonotonicMS();
-        int bytesRead = TCPClient_Read(&client, (uint8_t*)buffer, sizeof(buffer));
+        int bytesRead = TCPClient_Read(&client, (uint8_t*)&buffer[totalBytesRead], sizeof(buffer));
         if(bytesRead > 0){
             totalBytesRead += bytesRead;
             printf("Bytes read: %i\n", bytesRead);

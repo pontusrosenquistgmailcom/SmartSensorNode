@@ -20,7 +20,7 @@ typedef struct ListItem{
 
 typedef struct Storage{
     ListItem* next;
-    char* json_report_string;
+    char* http_post_string;
 }Storage;
 
 int storage_init(Storage* _Storage);

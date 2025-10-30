@@ -12,7 +12,7 @@ int storage_init(Storage* _Storage){
     memset(_Storage, 0, sizeof(Storage));
 */
     storage_add_to_local_list(_Storage, "2025-09-15_14:35", 22.5, 9902347);
-    /*storage_add_to_local_list(_Storage, "2025-10-17_07:59", 14.7, 9902347);*/
+    storage_add_to_local_list(_Storage, "2025-10-17_07:59", 14.7, 9902347);
     /*storage_add_to_local_list(_Storage, "2025-11-04_00:10", 4.2, 9902347);*/
 
     /*storage_print_all_data(_Storage);*/
